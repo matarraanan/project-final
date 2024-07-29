@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-image: url('path/to/your/image.jpg'); 
+            background-size: cover;
+            background-repeat: no-repeat; 
+            background-attachment: fixed;
+            font-family: Arial, sans-serif; 	
+            margin: 0; 
+            padding: 0; 
+        }
+       
+        .hover-underline-animation {
+            display: inline-block;
+            position: relative;
+            color: #0087ca;
+        }
+        .hover-underline-animation::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #0087ca;
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out;
+        }
+        .hover-underline-animation:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        .topnav {
+            background-color: transparent; 
+            overflow: hidden;
+            margin: 0;
+            position: fixed;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            top: 0;
+            z-index: 1000;
+            color: black;
+        }
+        .topnav a {
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        .topnav a:hover {
+            background-color: transparent;
+            color: #FF00FF;
+        }
+        .topnav a.active {
+            background-color: transparent;
+            color: white;
+        }
+        .info-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: left;
+            color: white;
+            padding: 100px 20px;
+            margin-top: 60px; /* To offset the fixed navbar */
+        }
+        .info-section img {
+            max-width: 200px;
+            margin-right: 20px;
+        }
+        .info-section div {
+            max-width: 600px;
+        }
+        .info-section h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: black;
+        }
+        .info-section p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            color: black;
+        }
+        .info-section a.button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 18px;
+            color: white;
+            background-color: #0087ca;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .info-section a.button:hover {
+            background-color: #005f8a;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="topnav">
+        <a style="float:left;" class="hover-underline-animation" href="/">Home</a>
+        {% if are_u == "company" %}
+        <a style="float:right;" class="hover-underline-animation" href="#">All Candidates</a>
+        {% elif are_u == "colab_company" %}
+        <a style="float:right;"  class="hover-underline-animation" href="#">Best Candidates</a>
+        {% else %}
+        <a style="float:right;"  class="hover-underline-animation" href="#"></a>
+        {% endif %}
+        <a style="float:right;"  class="hover-underline-animation" href="#">Sign-up</a>
+    </div>
+
+    <div class="info-section">
+        <img src="https://place-il.org/wp-content/uploads/2022/09/logo.svg" alt="Place IL Logo">
+        <div>
+            <h1>Welcome to <span style="color: #FF00FF;"> Place IL</span></h1>
+            <p>Your trusted partner in connecting top talent with leading companies.</p>
+            <a class="button" href="https://place-il.org/about/">Learn More</a>
+        </div>
+    </div>
+</body>
+</html>
