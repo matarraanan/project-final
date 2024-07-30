@@ -3,15 +3,14 @@
 <head>
     <style>
         body {
-            background-image: url('path/to/your/image.jpg'); 
+            background-color: #f2d9fc;
             background-size: cover;
-            background-repeat: no-repeat; 
+            background-repeat: no-repeat;
             background-attachment: fixed;
-            font-family: Arial, sans-serif; 	
-            margin: 0; 
-            padding: 0; 
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
-       
         .hover-underline-animation {
             display: inline-block;
             position: relative;
@@ -34,7 +33,7 @@
             transform-origin: bottom left;
         }
         .topnav {
-            background-color: transparent; 
+            background-color: transparent;
             overflow: hidden;
             margin: 0;
             position: fixed;
@@ -45,18 +44,23 @@
             z-index: 1000;
             color: black;
         }
-        .topnav a {
+        .topnav a, .topnav button {
             float: left;
             color: black;
             text-align: center;
             padding: 14px 16px;
-            justify-content: center;
             text-decoration: none;
             font-size: 17px;
+            border: none;
+            background: transparent;
         }
-        .topnav a:hover {
+        .topnav a:hover, .topnav button:hover {
             background-color: transparent;
             color: #FF00FF;
+        }
+        .topnav button {
+            cursor: pointer;
+            font-size: 17px;
         }
         .topnav a.active {
             background-color: transparent;
@@ -101,26 +105,35 @@
         .info-section a.button:hover {
             background-color: #005f8a;
         }
-
     </style>
 </head>
 <body>
     <div class="topnav">
-        <a style="float:left;" class="hover-underline-animation" href="/">Home</a>
+        <a class="hover-underline-animation" href="/">Home</a>
         {% if are_u == "company" %}
-        <a style="float:right;" class="hover-underline-animation" href="#">All Candidates</a>
-        {% elif are_u == "colab_company" %}
-        <a style="float:right;"  class="hover-underline-animation" href="#">Best Candidates</a>
-        {% else %}
-        <a style="float:right;"  class="hover-underline-animation" href="#"></a>
+        <a class="hover-underline-animation" href="/user">All Candidates</a>
+        {% elif are_u == "candidate" %}
+        <a class="hover-underline-animation" href="/candidates">Practice Questions</a>
+        <a class="hover-underline-animation" href="/prep">Prep Guide</a>
+        {%endif%}
+        {%  if signd == true  %}
+         <a class="hover-underline-animation" href="/contract">contract</a>
+        }
         {% endif %}
-        <a style="float:right;"  class="hover-underline-animation" href="#">Sign-up</a>
+        {% if are_u %}
+        <form action="/logout" method="post" style="display:inline;">
+            <button type="submit" class="hover-underline-animation">Logout</button>
+        </form>
+        {% else %}
+        <a class="hover-underline-animation" href="/signup">Sign Up</a>
+        <a class="hover-underline-animation" href="/login">Login</a>
+        {% endif %}
     </div>
 
     <div class="info-section">
         <img src="https://place-il.org/wp-content/uploads/2022/09/logo.svg" alt="Place IL Logo">
         <div>
-            <h1>Welcome to <span style="color: #FF00FF;"> Place IL</span></h1>
+            <h1>Welcome to <span style="color: #FF00FF;">Place IL</span></h1>
             <p>Your trusted partner in connecting top talent with leading companies.</p>
             <a class="button" href="https://place-il.org/about/">Learn More</a>
         </div>

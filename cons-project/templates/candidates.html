@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Information Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #8e2de2, #4a00e0); /* Purple gradient background */
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 150%;
+            height: 150%;
+            background: rgba(142, 45, 226, 0.1); /* Light purple overlay */
+            border-radius: 50%;
+            transform: rotate(-30deg);
+            z-index: 0;
+        }
+        h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            z-index: 1;
+            position: relative;
+        }
+        form {
+            position: relative;
+            z-index: 1;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        textarea, input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            background: #f9f9f9;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-sizing: border-box;
+        }
+        textarea:focus, input[type="text"]:focus {
+            border-color: #8e2de2;
+            box-shadow: 0 0 8px rgba(142, 45, 226, 0.2);
+            outline: none;
+        }
+        textarea {
+            resize: vertical;
+        }
+        input[type="submit"] {
+            background: linear-gradient(45deg, #8e2de2, #4a00e0);
+            color: #fff;
+            border: none;
+            padding: 15px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s, transform 0.3s;
+            box-sizing: border-box;
+        }
+        input[type="submit"]:hover {
+            background: linear-gradient(45deg, #4a00e0, #8e2de2);
+            transform: translateY(-2px);
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 24px;
+            }
+            textarea, input[type="text"] {
+                font-size: 14px;
+                padding: 10px;
+            }
+            input[type="submit"] {
+                font-size: 14px;
+                padding: 12px;
+            }
+        }
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 20px;
+            }
+            textarea, input[type="text"] {
+                font-size: 12px;
+                padding: 8px;
+                height: 10px;
+            }
+            input[type="submit"] {
+                font-size: 12px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Practice Interview Questions</h1>
+        <form action="" method="post">
+            <div class="form-group">
+                <textarea name="jobBackground" placeholder="Do you have any previous job experience?" rows="3"></textarea>
+                <textarea name="aboutMe" placeholder="About Me- Please write a short paragraph about yourself" rows="5"></textarea>
+                <textarea name="strengths" placeholder="What are 3 of your strengths?" rows="5"></textarea>
+                <textarea name="weaknesses" placeholder="What are 3 of your weaknesses?" rows="5"></textarea>
+                <textarea name="whyThisJob" placeholder="Why do you want this job?" rows="3"></textarea>
+                <!--<textarea name="whyHireYou" placeholder="Why should the company hire you?" rows="4"></textarea>
+                <textarea name="salaryExpectations" placeholder="What are your salary expectations?" rows="3"></textarea>-->
+                <input type="submit" name="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
