@@ -115,10 +115,9 @@
         {% elif are_u == "candidate" %}
         <a class="hover-underline-animation" href="/candidates">Practice Questions</a>
         <a class="hover-underline-animation" href="/prep">Prep Guide</a>
-        {%endif%}
-        {%  if signd == true  %}
-         <a class="hover-underline-animation" href="/contract">contract</a>
-        }
+        {% endif %}
+        {% if not signd and are_u == "candidate" %}
+        <a class="hover-underline-animation" href="/contract">Contract</a>
         {% endif %}
         {% if are_u %}
         <form action="/logout" method="post" style="display:inline;">

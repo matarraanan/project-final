@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Glitch Garden Error</title>
+  <style>
+    body {
+      background: black;
+      color: limegreen;
+      font-family: monospace;
+      text-align: center;
+    }
+
+    .error-message {
+      font-size: 48px;
+      text-shadow: 0 0 10px green, 0 0 20px green;
+      animation: glitch 1s infinite;
+    }
+
+    @keyframes glitch {
+      0% {
+        text-shadow: 0 0 20px green, 0 0 20px green;
+      }
+      50% {
+        text-shadow: 0 5px 10px red, 0 -5px 20px blue;
+      }
+      100% {
+        text-shadow: 0 0 15px green, 0 0 20px green;
+      }
+    }
+    a{
+      text-decoration: none;
+      text-shadow: 0 0 10px green, 0 0 20px green;
+      animation: glitch 1s infinite;
+      font-size: 20px;
+      color: limegreen;
+
+    }
+  </style>
+</head>
+<body>
+  <h1 class="error-message">ERROR 404: Place Not Found</h1>
+  <p>Looks like you've did something wrong.</p>
+  <a href="/">Go back home </a>
+</body>
+</html>

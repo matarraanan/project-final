@@ -155,7 +155,7 @@ button:hover {
             </div>
             <div class="contact">
                 <h2>Contact Us</h2>
-                <form action="#" method="post">
+                <form action="{{ url_for('thanks') }}" method="post" >
                     <label for="message">Message:</label>
                     <textarea id="message" name="message" required></textarea>
                     

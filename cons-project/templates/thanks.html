@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You!</title>
+    <style type="text/css">
+        body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f8ff;
+    font-family: 'Arial', sans-serif;
+}
+
+.thank-you-container {
+    text-align: center;
+    z-index: 10;
+    position: relative;
+}
+
+.thank-you-title {
+    font-size: 4em;
+    color: #ff6347;
+    animation: fadeIn 2s ease-out;
+}
+
+.thank-you-message {
+    font-size: 1.5em;
+    color: #333;
+    animation: fadeIn 3s ease-out;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+
+    </style>
+</head>
+<body>
+    <div class="thank-you-container">
+        <h1 class="thank-you-title">Thank You!</h1>
+        <p class="thank-you-message">Your submission has been received.<a href="/">home-page</a></p>
+    </div>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('confetti-canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const confetti = [];
+const confettiCount = 300;
+const gravity = 0.5;
+const terminalVelocity = 5;
+const drag = 0.075;
+const colors = [
+  { front: '#7b5cff', back: '#6245e0' },
+  { front: '#b3c7ff', back: '#8fa5e5' },
+  { front: '#5c86ff', back: '#345dd1' },
+  { front: '#62ffda', back: '#42e4c1' },
+  { front: '#ffaf8b', back: '#d5756c' },
+  { front: '#ffc621', back: '#e0a800' },
+];
+
+// Create confetti
+for (let i = 0; i < confettiCount; i++) {
+  confetti.push({
+    color: colors[Math.floor(Math.random() * colors.length)],
+    dimensions: {
+      x: Math.random() * 10 + 10,
+      y: Math.random() * 10 + 10,
+    },
+    position: {
+      x: Math.random() * canvas.width,
+      y: canvas.height - 1,
+    },
+    rotation: Math.random() * 2 * Math.PI,
+    scale: {
+      x: 1,
+      y: 1,
+    },
+    velocity: {
+      x: Math.random() * 20 - 10,
+      y: Math.random() * -20,
+    },
+  });
+}
+
+// Render confetti
+function render() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  confetti.forEach((confetto, index) => {
+    let width = confetto.dimensions.x * confetto.scale.x;
+    let height = confetto.dimensions.y * confetto.scale.y;
+
+   
+    ctx.translate(confetto.position.x, confetto.position.y);
+    ctx.rotate(confetto.rotation);
+
+    confetto.velocity.x -= confetto.velocity.x * drag;
+    confetto.velocity.y = Math.min(confetto.velocity.y + gravity, terminalVelocity);
+    confetto.velocity.x += Math.random() > 0.5 ? Math.random() : -Math.random();
+
+  
+    confetto.position.x += confetto.velocity.x;
+    confetto.position.y += confetto.velocity.y;
+
+    
+    if (confetto.position.y >= canvas.height) confetti.splice(index, 1);
+
+ 
+    if (confetto.position.x > canvas.width) confetto.position.x = 0;
+    if (confetto.position.x < 0) confetto.position.x = canvas.width;
+
+  
+    confetto.rotation += confetto.velocity.x * 0.002;
+
+    ctx.fillStyle = confetto.scale.y > 0 ? confetto.color.front : confetto.color.back;
+
+ 
+    ctx.fillRect(-width / 2, -height / 2, width, height);
+
+
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+  });
+
+  window.requestAnimationFrame(render);
+}
+
+render();
+
+    </script>
+</body>
+</html>

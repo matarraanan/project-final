@@ -23,7 +23,7 @@ db = firebase.database()
 def home():
     who_r_u = session.get('who_r_u')  # Check if company or candidate
     users = db.child("Users").get().val()  # Get value of users dictionary in the DB
-    signd = session.get('signed', False)  # Provide a default value if 'signed' is not set
+    signd = session.get('signed', False)  
     return render_template("homepage.html", are_u=who_r_u, users=users, signd=signd)
 
 
@@ -46,7 +46,7 @@ def sign_up():
             session['who_r_u'] = who_r_u
             return redirect(url_for('home'))
         except:
-            return "An error occurred during sign-up. Please try again."
+            return redirect( url_for('error'))
     
     return render_template('sign-up.html')
 
@@ -64,7 +64,7 @@ def login():
             session['signed'] = user_info['signed']
             return redirect(url_for('home'))
         except:
-            return "An error occurred during login. Please try again."
+            return redirect( url_for('error'))
     return render_template('sign-in.html')
 
 @app.route('/contract', methods=['GET'])
@@ -81,9 +81,9 @@ def submit_signature():
     
     try:
         db.child("Users").child(user_id).update({"signed": True, "signature": signature_data})
-        return redirect(url_for('home'))
+        return redirect(url_for('thanks'))
     except:
-        return "error"
+        return redirect( url_for('error'))
 
 @app.route('/user')
 def user_list():
@@ -122,6 +122,23 @@ def logout():
 def user_detail(user_id):
     user = db.child("Users").child(user_id).get().val()
     return render_template("user_detail.html", user=user)
+
+@app.route('/submit_interview')
+def submit_interview():
+  answer = request.form['message']
+  try:
+    session['message'] = answer
+    return redirect(url_for('thanks'))
+  except:
+    return redirect(url_for('error'))
+
+@app.route('/thanks')
+def thanks ():
+  return render_template("thanks.html")
+
+@app.route('/error')
+def error ():
+  return render_template("error.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
