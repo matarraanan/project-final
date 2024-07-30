@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import pyrebase
 
-app = Flask(__name__, template_folder="templates")
+app = Flask(__name__, template_folder="templates",static_folder="static")
 app.secret_key = 'your_secret_key'
 
 # Firebase configuration
@@ -23,10 +23,9 @@ db = firebase.database()
 def home():
     who_r_u = session.get('who_r_u')  # Check if company or candidate
     users = db.child("Users").get().val()  # Get value of users dictionary in the DB
-    signd = session.get('signed', False)  
-    return render_template("homepage.html", are_u=who_r_u, users=users, signd=signd)
-
-
+    signd = session.get('signed', False)  #check if u signed
+    return render_template("homepage.html", are_u=who_r_u, users=users, signd=signd) 
+    #returns the hompage with who u r, users and if u signed contract
 @app.route('/signup', methods=['POST', 'GET'])
 def sign_up():
     if request.method == 'POST':
@@ -35,27 +34,26 @@ def sign_up():
         name = request.form['name']
         taz = request.form['taz']
         who_r_u = request.form['who']
-        
+        #get info from html
         try:
             user = auth.create_user_with_email_and_password(email, password)
             session['user'] = user
             
             usr_info = {"name": name, "taz": taz, "who_r_u": who_r_u, "signed": False}
             db.child("Users").child(user['localId']).set(usr_info)
-            
+            #make the user, save in session and db 
             session['who_r_u'] = who_r_u
             return redirect(url_for('home'))
         except:
             return redirect( url_for('error'))
     
     return render_template('sign-up.html')
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        try:
+        try: #login 
             user = auth.sign_in_with_email_and_password(email, password)
             session['user'] = user
             user_info = db.child("Users").child(user['localId']).get().val()
@@ -65,15 +63,13 @@ def login():
             return redirect(url_for('home'))
         except:
             return redirect( url_for('error'))
-    return render_template('sign-in.html')
-
+    return render_template('sign-in.html') 
 @app.route('/contract', methods=['GET'])
 def contract():
     if session.get('who_r_u'):
-        return render_template("contract.html")
+        return render_template("contract.html" )
     else:
         return redirect(url_for('home'))
-
 @app.route('/submit_signature', methods=['POST'])
 def submit_signature():
     signature_data = request.form['signature']
@@ -139,6 +135,10 @@ def thanks ():
 @app.route('/error')
 def error ():
   return render_template("error.html")
+
+@app.route('/voicerec')
+def voicerec():
+  return render_template("voicerec.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
